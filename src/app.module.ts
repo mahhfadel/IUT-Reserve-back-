@@ -9,21 +9,18 @@ import { HoraryModule } from './horary/horary.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
-import { HoraryModule } from './horary/horary.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
-    TypeOrmModule.forRoot(dataSourceOptions),
-    GroupModule,
-    HoraryModule,
-    RoleModule,
-    UserModule,
-    ReservationModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [
+        ConfigModule.forRoot(),
+        TypeOrmModule.forRoot(dataSourceOptions),
+        GroupModule,
+        HoraryModule,
+        RoleModule,
+        UserModule,
+        ReservationModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}
