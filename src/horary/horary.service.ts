@@ -1,26 +1,61 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateHoraryDto } from './dto/create-horary.dto';
 import { UpdateHoraryDto } from './dto/update-horary.dto';
+import { Horary } from './entities/horary.entity';
 
 @Injectable()
 export class HoraryService {
-  create(createHoraryDto: CreateHoraryDto) {
-    return 'This action adds a new horary';
-  }
+    constructor(
+        @InjectRepository(Horary)
+        private horaryRepository: Repository<Horary>,
+    ) {}
 
-  findAll() {
-    return `This action returns all horary`;
-  }
+    async create(createHoraryDto: CreateHoraryDto) {
+        return null;
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} horary`;
-  }
+    async findAll() {
+        try {
+            const [result, total] = await this.horaryRepository.findAndCount();
 
-  update(id: number, updateHoraryDto: UpdateHoraryDto) {
-    return `This action updates a #${id} horary`;
-  }
+            return {
+                result,
+                total,
+            };
+        } catch (error) {
+            console.error('Falha ao buscar horários');
+        }
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} horary`;
-  }
+    async findOne(id: number) {
+        try {
+            const findHorary = await this.horaryRepository.findOne({ where: { id } });
+
+            return findHorary;
+        } catch (error) {
+            console.error(`Falha ao buscar o horário de id: ${id}`);
+        }
+    }
+
+    async update(id: number, updateHoraryDto: UpdateHoraryDto) {
+        try {
+            const updateHorary = await this.horaryRepository.update(id, updateHoraryDto);
+
+            return updateHorary;
+        } catch (error) {
+            console.error(`Falha ao atualizar o horário de id: ${id}`);
+        }
+    }
+
+    async remove(id: number) {
+        try {
+            const deleteHorary = await this.horaryRepository.delete(id);
+
+            return deleteHorary;
+        } catch (error) {
+            console.error(`Falha ao remover o horário de id: ${id}`);
+        }
+    }
 }

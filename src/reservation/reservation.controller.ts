@@ -18,17 +18,19 @@ export class ReservationController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.reservationService.findOne(+id);
+
+    findOne(@Param() user_id: number, room_id: number, horary_id: number) {
+        return this.reservationService.findOne(user_id, room_id, horary_id);
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateReservationDto: UpdateReservationDto) {
-        return this.reservationService.update(+id, updateReservationDto);
+    update(@Param() user_id: number, room_id: number, horary_id: number, @Body() updateReservationDto: UpdateReservationDto) {
+        return this.reservationService.update(user_id, room_id, horary_id, updateReservationDto);
     }
 
     @Delete(':id')
-    remove(@Param('id') id: string) {
-        return this.reservationService.remove(+id);
+    remove(@Param() user_id: number, room_id: number, horary_id: number) {
+        return this.reservationService.remove(user_id, room_id, horary_id);
+
     }
 }
