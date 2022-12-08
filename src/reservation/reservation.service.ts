@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ReservationService {
+
     constructor(
         @InjectRepository(Reservation)
         private reservationRepository: Repository<Reservation>,
@@ -58,5 +59,6 @@ export class ReservationService {
         } catch (error) {
             console.error(`Falha ao remover a reserva`);
         }
+
     }
 }

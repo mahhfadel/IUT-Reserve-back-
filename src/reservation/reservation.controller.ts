@@ -18,6 +18,7 @@ export class ReservationController {
     }
 
     @Get(':id')
+
     findOne(@Param() user_id: number, room_id: number, horary_id: number) {
         return this.reservationService.findOne(user_id, room_id, horary_id);
     }
@@ -30,5 +31,6 @@ export class ReservationController {
     @Delete(':id')
     remove(@Param() user_id: number, room_id: number, horary_id: number) {
         return this.reservationService.remove(user_id, room_id, horary_id);
+
     }
 }
