@@ -1,26 +1,61 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
-  }
+    constructor(
+        @InjectRepository(User)
+        private userRepository: Repository<User>,
+    ) {}
 
-  findAll() {
-    return `This action returns all user`;
-  }
+    async create(createUserDto: CreateUserDto) {
+        return null;
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+    async findAll() {
+        try {
+            const [result, total] = await this.userRepository.findAndCount();
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
+            return {
+                result,
+                total,
+            };
+        } catch (error) {
+            console.error('Falha ao buscar usuários');
+        }
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
+    async findOne(id: number) {
+        try {
+            const findUser = await this.userRepository.findOne({ where: { id } });
+
+            return findUser;
+        } catch (error) {
+            console.error(`Falha ao buscar o usuário de id: ${id}`);
+        }
+    }
+
+    async update(id: number, updateUserDto: UpdateUserDto) {
+        try {
+            const updateUser = await this.userRepository.update(id, updateUserDto);
+
+            return updateUser;
+        } catch (error) {
+            console.error(`Falha ao atualizar o usuário de id: ${id}`);
+        }
+    }
+
+    async remove(id: number) {
+        try {
+            const deleteUser = await this.userRepository.delete(id);
+
+            return deleteUser;
+        } catch (error) {
+            console.error(`Falha ao remover o usuário de id: ${id}`);
+        }
+    }
 }

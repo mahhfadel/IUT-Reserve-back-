@@ -30,14 +30,32 @@ export class HoraryService {
     }
 
     async findOne(id: number) {
-        return `This action returns a #${id} horary`;
+        try {
+            const findHorary = await this.horaryRepository.findOne({ where: { id } });
+
+            return findHorary;
+        } catch (error) {
+            console.error(`Falha ao buscar o horário de id: ${id}`);
+        }
     }
 
     async update(id: number, updateHoraryDto: UpdateHoraryDto) {
-        return `This action updates a #${id} horary`;
+        try {
+            const updateHorary = await this.horaryRepository.update(id, updateHoraryDto);
+
+            return updateHorary;
+        } catch (error) {
+            console.error(`Falha ao atualizar o horário de id: ${id}`);
+        }
     }
 
     async remove(id: number) {
-        return `This action removes a #${id} horary`;
+        try {
+            const deleteHorary = await this.horaryRepository.delete(id);
+
+            return deleteHorary;
+        } catch (error) {
+            console.error(`Falha ao remover o horário de id: ${id}`);
+        }
     }
 }
