@@ -7,7 +7,7 @@ export const dataSourceOptions: DataSourceOptions = {
     username: 'postgres',
     password: 'dev-iut-reserve',
     database: 'iut_reserve_dev',
-    migrations: ['src/migrations/*.ts'],
+    migrations: ['./migrations/*.ts'],
 };
 
 const dataSource = new DataSource(dataSourceOptions);
