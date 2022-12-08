@@ -12,7 +12,10 @@ import { RoleModule } from './role/role.module';
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({
+            isGlobal: true,
+            expandVariables: true,
+        }),
         TypeOrmModule.forRoot(dataSourceOptions),
         GroupModule,
         HoraryModule,
