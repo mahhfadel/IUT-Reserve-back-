@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { ChangeReservationStatusDto } from './dto/change-reservation-status.dto';
 
 @Controller('reservation')
 export class ReservationController {
@@ -18,7 +19,6 @@ export class ReservationController {
     }
 
     @Get(':id')
-
     findOne(@Param() user_id: number, room_id: number, horary_id: number) {
         return this.reservationService.findOne(user_id, room_id, horary_id);
     }
@@ -28,9 +28,13 @@ export class ReservationController {
         return this.reservationService.update(user_id, room_id, horary_id, updateReservationDto);
     }
 
+    @Patch()
+    async changeReservationStatus(@Body() changeReservationStatus: ChangeReservationStatusDto) {
+        await this.reservationService.changeReservationStatus(changeReservationStatus);
+    }
+
     @Delete(':id')
     remove(@Param() user_id: number, room_id: number, horary_id: number) {
         return this.reservationService.remove(user_id, room_id, horary_id);
-
     }
 }

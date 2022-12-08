@@ -39,6 +39,16 @@ export class GroupService {
         }
     }
 
+    async findOneByName(name: string) {
+        try {
+            const findGroup = await this.groupRepository.findOne({ where: { name } });
+
+            return findGroup;
+        } catch (error) {
+            console.error(`Falha ao buscar o grupo de nome: ${name}`);
+        }
+    }
+
     async update(id: number, updateGroupDto: UpdateGroupDto) {
         try {
             const updateGroup = await this.groupRepository.update(id, updateGroupDto);

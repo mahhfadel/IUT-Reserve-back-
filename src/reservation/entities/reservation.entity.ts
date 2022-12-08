@@ -1,10 +1,13 @@
 import { Room } from 'src/room/entities/room.entity';
 import { User } from 'src/user/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Reservation {
-    @Column()
+    @PrimaryGeneratedColumn()
+    sequence: number;
+
+    @PrimaryColumn()
     user_id: number;
 
     @Column()

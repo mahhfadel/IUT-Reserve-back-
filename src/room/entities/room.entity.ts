@@ -7,10 +7,13 @@ export class Room {
     id: number;
 
     @Column()
-    nameLuis: string;
+    name: string;
 
     @Column()
     code: string;
+
+    @Column()
+    capacity: number;
 
     @Column()
     information: string;

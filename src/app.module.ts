@@ -10,7 +10,7 @@ import { HoraryModule } from './horary/horary.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
-
+import { RoomModule } from './room/room.module';
 
 @Module({
     imports: [
@@ -23,6 +23,7 @@ import { UserModule } from './user/user.module';
         RoleModule,
         UserModule,
         ReservationModule,
+        RoomModule,
     ],
     controllers: [AppController],
     providers: [AppService],

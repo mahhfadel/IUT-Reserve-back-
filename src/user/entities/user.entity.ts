@@ -1,7 +1,9 @@
 import { Group } from 'src/group/entities/group.entity';
 import { Reservation } from 'src/reservation/entities/reservation.entity';
 import { Role } from 'src/role/entities/role.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
+import { hashSync } from 'bcrypt';
 
 @Entity()
 export class User {
@@ -39,4 +41,9 @@ export class User {
 
     @OneToMany(() => Reservation, () => User)
     reservations: Reservation[];
+
+    @BeforeInsert()
+    encryptPassword = () => {
+        this.password = hashSync(this.password, 10);
+    };
 }
